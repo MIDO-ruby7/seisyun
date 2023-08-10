@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
   mode: 'development',
-  enpty: './src/index.ts',
+  entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -14,7 +14,7 @@ const config = {
     rules: [
       {
         test: /\.(ts|tsx)$/,
-        lorader: 'ts-loader',
+        loader: 'ts-loader',
         exclude: /node_modules/,
       },
     ],
