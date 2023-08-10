@@ -1,0 +1,38 @@
+{
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@mantine/core": "^6.0.11",
+    "@mantine/form": "^6.0.11",
+    "@mantine/hooks": "^6.0.11",
+    "phaser": "^3.60.0"
+  },
+  "name": "novel",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MIDO-ruby7/novel.git"
+  },
+  "author": "midori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MIDO-ruby7/novel/issues"
+  },
+  "homepage": "https://github.com/MIDO-ruby7/novel#readme",
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "html-webpack-plugin": "^5.5.3",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
