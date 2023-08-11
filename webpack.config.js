@@ -8,19 +8,22 @@ const config = {
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'bundle.js'
   },
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.ts$/,
         loader: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
+        exclude: /node_modules/
+      }
+    ]
   },
   plugins: [
     new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    }),
+    new CopyWebpackPlugin({
       patterns: [{ from: 'src/assets/', to: 'assets/' }]
     })
   ],
@@ -29,7 +32,7 @@ const config = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.resolve(__dirname, 'dist'),
     },
     port: 3000,
     open: true
