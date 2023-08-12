@@ -36,7 +36,7 @@ export class TimelinePlayer {
   }
 
   private setBackground(x: number, y: number, texture: string) {
-    this.backgroundLayer.removeAll(true);
+    this.backgroundLayer.removeAll();
     const backgroundImage = new Phaser.GameObjects.Image(this.scene, x, y, texture);
     this.backgroundLayer.add(backgroundImage);
   }
@@ -56,14 +56,14 @@ export class TimelinePlayer {
     }
     this.hitArea.disableInteractive();
 
-    const buttonHeight = 40;
-    const buttonMargin = 40;
+    const buttonHeight = 40,
+          buttonMargin = 40;
     const { width, height } = this.scene.game.canvas;
     const buttonGroupHeight = buttonHeight * choices.length + buttonMargin * (choices.length - 1);
     const buttonGroupOriginY = height/2 - buttonGroupHeight/2;
 
     choices.forEach((choice, index) => {
-      const y = buttonGroupOriginY + buttonHeight  * (index + 0.5) + buttonMargin * (index);
+      const y = buttonGroupOriginY + buttonHeight * (index + 0.5) + buttonMargin * (index);
 
       const button = new Phaser.GameObjects.Rectangle(this.scene, width/2, y, width - buttonMargin*2, buttonHeight, 0x000000).setStrokeStyle(1, 0xffffff);
       button.setInteractive({
@@ -114,6 +114,10 @@ export class TimelinePlayer {
         break;
       case 'addForeground':
         this.addForeground(timelineEvent.x, timelineEvent.y, timelineEvent.key);
+        this.next();
+        break;
+      case 'clearForeground':
+        this.clearForeground();
         this.next();
         break;
       case 'timelineTransition':

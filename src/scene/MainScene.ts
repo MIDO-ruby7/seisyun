@@ -1,11 +1,31 @@
 import { DialogBox, DialogBoxConfig }  from "../class/DialogBox";
+import { TimelinePlayer } from "../class/TimelinePlayer";
+import { Timeline } from "../type/Timeline";
+import { timelineData } from '../data/timeline';
 
 export class MainScene extends Phaser.Scene {
+  private timeline?: Timeline;
+
   constructor() {
     super('main');
   }
 
+  init(data: any) {
+    const timelineID = data.timelineID || 'start';
+
+    if (!(timelineID in timelineData)) {
+      console.error(`[ERROR] タイムラインID[${timelineID}]は登録されていません`);
+      this.scene.start('title');
+      return;
+    }
+    this.timeline = timelineData[timelineID];
+  }
+
   create() {
+    if (!this.timeline) {
+      return;
+    }
+
     const { width, height } = this.game.canvas;
 
     this.add.image(width/2, height/2, 'street');
@@ -15,31 +35,20 @@ export class MainScene extends Phaser.Scene {
       fontSize: '24px'
     };
 
-    const DialogBoxHeight = 150;
-    const DialogBoxMargin = 10;
-    const DialogBoxConfig: DialogBoxConfig = {
+    const dialogBoxHeight = 150;
+    const dialogBoxMargin = 10;
+    const dialogBoxConfig: DialogBoxConfig = {
       x: width/2,
-      y: height - DialogBoxMargin - DialogBoxHeight/2,
-      width: width - DialogBoxMargin * 2,
-      height: DialogBoxHeight,
+      y: height - dialogBoxMargin - dialogBoxHeight/2,
+      width: width - dialogBoxMargin * 2,
+      height: dialogBoxHeight,
       padding: 10,
-      margin: DialogBoxMargin,
+      margin: dialogBoxMargin,
       textStyle: textStyle
     };
 
-    const dialogBox = new DialogBox(this, DialogBoxConfig);
-
-    dialogBox.setText('クリックでエンディング▼');
-    dialogBox.setActorNameText('NAME');
-
-    this.add.existing(dialogBox);
-
-    const zone = this.add.zone(width/2, height/2, width, height);
-    zone.setInteractive({
-      useHandCursor: true
-    });
-    zone.on('pointerdown', () => {
-      this.scene.start('ending');
-    });
+    const dialogBox = new DialogBox(this, dialogBoxConfig);
+    const timelinePlayer = new TimelinePlayer(this, dialogBox, textStyle);
+    timelinePlayer.start(this.timeline);
   }
 }
