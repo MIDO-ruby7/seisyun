@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
-  mode: 'development',
+  mode:'production',
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -30,13 +30,16 @@ const config = {
   resolve: {
     extensions: ['.ts', '.js']
   },
-  devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-    },
-    port: 3000,
-    open: true
-  }
+  // devServer: {
+  //   static: {
+  //     directory: path.resolve(__dirname, 'dist'),
+  //   },
+  //   port: 3000,
+  //   open: true
+  // }
+  optimization: {
+    minimize: true, // ファイルを最小化
+  },
 };
 
 module.exports = config;
